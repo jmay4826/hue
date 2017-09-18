@@ -1,0 +1,44 @@
+<div flex-xs flex-gt-xs="50" layout="column">
+    <md-card ng-repeat="(index,light) in lights" ng-class="{unreachable: !light.state.reachable}" class="light-card" ng-style="{'border': 
+'3px solid rgba(' + light.state.rgb[0] + ', ' 
++ light.state.rgb[1] + ', ' 
++ light.state.rgb[2] + ', 1.0)'}">
+        <!-- <md-card-header>
+            <md-card-avatar>
+                <md-icon class="md-avatar-icon" md-svg-icon="images/{{getImage(light)}}" ng-style="light.state.on ? {'background-color': 'lightyellow'} : {'background-color': 'lightgray'}"></md-icon>
+            </md-card-avatar>
+
+        </md-card-header> -->
+
+        <md-card-title>
+            <md-card-title-text>
+                <input type="text" ng-model="light.name" class="md-headline" style="border:none">
+            </md-card-title-text>
+            <md-card-title-media>
+                <md-icon class="md-media-sm card-media" md-svg-icon="images/{{getImage(light)}}"></md-icon>
+            </md-card-title-media>
+        </md-card-title>
+        <!-- TODO: Fix issue where dragging floods bridge with requests.
+        Can't use debounce with md-slider because it debounces the whole thing,
+        not just the updateLight call -->
+        <div layout="row" layout-align="space-between center" layout-margin>
+            <div>
+                <span class="md-body-1">Brightness</span>
+            </div>
+            <md-slider flex="grow" ng-model="light.state.bri" min="1" max="254" ng-change="updateLight(index, {bri: light.state.bri})"></md-slider>
+            <div>
+                <md-input-container>
+                    <input type="number" ng-model="100 * (light.state.bri)/255" style="width: 3em">
+                </md-input-container>
+            </div>
+        </div>
+        <md-button ng-click="updateLight(index, {'on': !light.state.on})">
+            Toggle Light
+        </md-button>
+        <md-button ng-click=" updateLight(index, {rgb: [0,255,0], alert: 'select'}) ">Green</md-button>
+        <md-button ng-click="updateLight(index, {rgb: [255, 0, 0], alert: 'select'}) ">Red</md-button>
+        <!-- <input type="color " ng-model="light.state.hex " ng-change="updateLight(index, {hex: light.state.hex}) "> -->
+        <!-- <br> {{light.state.hex}} -->
+
+    </md-card>
+</div>
